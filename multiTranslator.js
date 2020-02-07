@@ -1,59 +1,104 @@
+require("dotenv").config();
+
 const { Translate } = require("@google-cloud/translate").v2;
+const inquirer = require("inquirer");
 const translate = new Translate();
 
-async function translator(text, lang) {
-  switch (lang) {
-    case 1:
-      // transalte to arabic
-      target = "ar";
-      break;
-    case 2:
-      // transalte to indonesion
-      target = "id";
-      break;
-    case 3:
-      // transalte to chinese
-      target = "zh-cn";
-      break;
-    default:
-      // transalte to English -> Language 1 -> Language 2 -> Language 3 -> … -> English
-      let [translation] = await translate.translate(text, ar);
-      console.log(`Text: ${text}`);
-      console.log(`Translation: ${translation}`);
-      return true;
+process.env.SECRET_KEY;
+
+let langDict = {
+  Arabic: "ar",
+  Indonesian: "id",
+  Chinese: "zh-cn",
+  Bengali: "bn",
+  German: "de"
+};
+
+async function translator(answer) {
+  let arrLanguage = answer.languages;
+  console.log("arrLanguages selected:" + arrLanguage);
+  let text = answer.text;
+  console.log("length: " + arrLanguage.length);
+  for (let i = 0; i < arrLanguage.length; i++) {
+    console.log("arrLang[i]:" + arrLanguage);
+    console.log("text:" + text);
+    translation = await translate.translate(text, langDict[arrLanguage[i]]);
+    console.log("translation:" + translation);
+    console.log("translation:" + translation[0]);
+    console.log(
+      `Translation after Language ${arrLanguage[i]}: ${translation[0]}`
+    );
+    text = translation[0];
   }
-  let [translation] = await translate.translate(text, target);
-  console.log(`Text: ${text}`);
-  console.log(`Translation: ${translation}`);
+  translation = await translate.translate(text, "en");
+  console.log(`Translation back to english: ${translation[0]}`);
 }
 
-translator("I love to eat rice with chicken soup and fried shallots", 1);
+var questions = [
+  {
+    message: "What do you want to translate?",
+    type: "input",
+    name: "text"
+  },
+  {
+    message: "What languages do you want?",
+    type: "checkbox",
+    choices: ["Arabic", "Indonesian", "Chinese", "Bengali", "German"],
+    name: "languages",
+    validate: ans => ans.length > 0
+  }
+];
+inquirer.prompt(questions).then(translator);
 
-/**
-   * TODO(developer): Uncomment the following line before running the sample.
-   
-  // const projectId = 'YOUR_PROJECT_ID';
+// TESTER
+/* Hi domun, what are you doing for today? I was just going to ask if you are free today because MYWA has got an event today at
+2pm.Do you want to come along? 
+*/
+//translator("I love to eat rice with chicken soup and fried shallots", 2);
+//translator("Rifqi is enjoying his kebab right now", 3);
+/* translator(
+  "Mr Eddie is currently studying with me regarding his upcoming poster designing assignment"
+); */
 
-  // Imports the Google Cloud client library
-  const {Translate} = require('@google-cloud/translate').v2;
-
-  // Instantiates a client
-  const translate = new Translate({projectId});
-
-  async function quickStart() {
-    // The text to translate
-    const text = 'Hello, world!';
-
-    // The target language
-    const target = 'ru';
-
-    // Translates some text into Russian
-    const [translation] = await translate.translate(text, target);
+/*
+async function translatorOLD(text, lang) {
+  // this answer here will work with text and languages
+  if (!lang) {
+    // transalte to English -> Language 1 -> Language 2 -> Language 3 -> … -> English
+    // let arrLanguage = ["ar", "id", "zh-cn"];
+    let arrLanguage = ["ar", "id", "zh-cn"]; // needs work here
+    console.log(arrLanguage);
+    let translation = text;
+    for (let i = 0; i < arrLanguage.length; i++) {
+      translation = await translate.translate(text, arrLanguage[i]);
+      console.log(`Translation after Language ${i + 1}: ${translation[0]}`);
+      text = translation[0];
+    }
+    translation = await translate.translate(text, "en");
+    console.log(`Translation back to english: ${translation[0]}`);
+  } else {
+    switch (lang) {
+      case 1:
+        // transalte to arabic
+        target = "ar";
+        break;
+      case 2:
+        // transalte to indonesion
+        target = "id";
+        break;
+      case 3:
+        // transalte to chinese
+        target = "zh-cn";
+        break;
+    }
+    let [translation] = await translate.translate(text, target);
     console.log(`Text: ${text}`);
     console.log(`Translation: ${translation}`);
+    text = translation;
+    translation = await translate.translate(text, "en");
+    console.log(`Translation back to english: ${translation[0]}`);
   }
-
-  quickStart();
+}
 */
 
 // we want to create translator, so there will be two arguments
