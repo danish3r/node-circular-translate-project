@@ -33,4 +33,4 @@ Once we load the file, it will asks the user for a text to be translated and
 followed by choices of language for the text's multi-language translation
 ```
 
-![Alt Text](https://media.giphy.com/media/jUFIld6xgz1aOYDTsI/source.mov)
+![Alt Text](https://media.giphy.com/media/jUFIld6xgz1aOYDTsI/giphy.gif)
