@@ -33,4 +33,4 @@ Once we load the file, it will asks the user for a text to be translated and
 followed by choices of language for the text's multi-language translation
 ```
 
-<a href="https://imgflip.com/gif/3ontpj"><img src="https://i.imgflip.com/3ontpj.gif" title="made at imgflip.com"/></a>
+<iframe src="https://giphy.com/embed/jUFIld6xgz1aOYDTsI" width="380" height="480" frameBorder="0" class="giphy-embed" allowFullScreen></iframe><p><a href="https://giphy.com/gifs/jUFIld6xgz1aOYDTsI">via GIPHY</a></p>
