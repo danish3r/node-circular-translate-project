@@ -33,4 +33,4 @@ Once we load the file, it will asks the user for a text to be translated and
 followed by choices of language for the text's multi-language translation
 ```
 
-<div style="width:100%;height:0;padding-bottom:126%;position:relative;"><iframe src="https://giphy.com/embed/jUFIld6xgz1aOYDTsI" width="100%" height="100%" style="position:absolute" frameBorder="0" class="giphy-embed" allowFullScreen></iframe></div><p><a href="https://giphy.com/gifs/jUFIld6xgz1aOYDTsI">via GIPHY</a></p>
+![Alt Text](https://media.giphy.com/media/jUFIld6xgz1aOYDTsI/source.mov)
